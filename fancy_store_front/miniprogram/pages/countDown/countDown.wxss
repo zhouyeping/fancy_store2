@@ -1,0 +1,24 @@
+/* miniprogram/pages/countDown/countDown.wxss */
+.countDown{
+  font-family: Lucida Sans;
+  color: black;
+  word-spacing: 20rpx;/*设置段落间的字间距*/
+  white-space: normal;/*文本自动处理换行*/
+  border-color: black;
+  text-align: right;
+  border:  navajowhite;
+  size: 50%;
+  position: absolute;
+  left: 62%;
+}
+.btn1 {
+  width: 80%;
+  margin-top: 20rpx;
+  background-color: burlywood;
+  color: white;
+  border-radius: 98rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

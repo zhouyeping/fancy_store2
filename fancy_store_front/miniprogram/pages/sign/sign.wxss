@@ -1,0 +1,12 @@
+/**index.wxss**/
+
+.countDown{
+  color: #2a8eea;
+  word-spacing: 20px;/*设置段落间的字间距*/
+  text-align: left;/* 设置文本对齐方式左对齐*/
+  text-indent: 50px; /* 将段落的第一行缩进50像素 */
+  /*text-decoration: underline;/*元素的文本样式：下划线*/
+  /*text-decoration-color: rgb(163, 28, 28);/*规定文本修饰的颜色，在这里就是下划线的颜色*/
+  line-height: 30px;
+  white-space: normal;/*文本自动处理换行*/
+}

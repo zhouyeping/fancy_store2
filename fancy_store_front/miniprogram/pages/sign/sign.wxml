@@ -1,0 +1,13 @@
+<!--index.wxml-->
+<view>
+<form bindsubmit='onTapDayWeather'>
+<input disabled="false"></input>
+<input disabled="false"></input>
+<input disabled="false"></input>
+<input name="user_name" style="text-align:center" placeholder="please input your name here" type='text'></input>
+<input disabled="false"></input>
+<button class='countDown' form-type="submit"  type='primary'>签到</button>
+<input disabled="false"></input>
+<button class="countDown" type="primary" disabled='{{isDisabled}}'>注册</button> 
+</form>
+</view>

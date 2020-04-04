@@ -1,0 +1,9 @@
+<!--miniprogram/pages/index/index.wxml-->
+<input disabled="false"></input>
+<input disabled="false"></input>
+<input disabled="false"></input>
+<button  type="primary" disabled='{{isDisabled}}' bindtap="goToWeather">天气预报</button> 
+<input disabled="false"></input>
+<input disabled="false"></input>
+<button  type="primary" disabled='{{isDisabled}}' bindtap="goToCountDown">学习签到</button> 
+

@@ -26,6 +26,6 @@ module.exports = {
     },
     orders:{
         queryAllByUid:"select * from orders where uid=?",
-        insert:"insert into orders values(null, ?,?,?,?,?,?)"
+        insert:"insert into orders values(null,?,?,?,?,?,?)"
     }
 };

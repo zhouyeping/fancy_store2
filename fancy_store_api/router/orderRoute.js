@@ -19,10 +19,10 @@ router.post("/add",async function(req,res,next){
     };
     // 获取登陆用户（当前写死，前端传入）
     //articleModel.uid = req.session.userinfo.userId;
-      orderModel.uid = req.body.uid;
+    orderModel.uid = req.body.uid;
 
     let currentTime = Math.round(new Date / 1000);
-    orderModel.createTime = currentTime;
+    orderModel.create_time = currentTime;
     if (await api.addTheOrder(orderModel) === -1){
         res.json({
             status: false,
@@ -34,4 +34,5 @@ router.post("/add",async function(req,res,next){
         status: true,
         msg: "成功添加订单"
     })
-})
+});
+module.exports=router;

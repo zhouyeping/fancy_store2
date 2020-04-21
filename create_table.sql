@@ -83,8 +83,8 @@ create table if not exists cart(
 cart_id int primary key auto_increment comment '自增',
 u_id int not null comment '买家id',
 product_id int comment '商品的id',
-price_count int comment '金额小计',
-mprice_count int comment '市场价格小计',
+price_count decimal(10,2) comment '金额小计',
+mprice_count decimal(10,2) comment '市场价格小计',
 sale_num int comment '购买数量'
 );
 

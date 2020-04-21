@@ -1,5 +1,6 @@
 const cateRouter = require('./router/cateRoute');
 const goodsRouter = require('./router/goodsRoute');
+const orderRouter = require('./router/orderRoute');
 const bodyParser = require('body-parser'); // post 数据是需要
 const express = require('express');
 const session = require("express-session");
@@ -9,6 +10,7 @@ const app = express();
 
 const cors = require('cors');
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true})); //'content-type': 'application/x-www-form-urlencoded'
 app.use(session({
     secret: 'this is string key',   // 可以随便写。 一个 String 类型的字符串，作为服务器端生成 session 的签名
 
@@ -43,6 +45,7 @@ app.all('*',function(req,res,next){
 // 路由列表
 app.use('/cateRoute', cateRouter)
 app.use('/goodsRoute', goodsRouter)
+app.use('/orderRoute',orderRouter)
 
 app.listen(3000);
 console.log('success listen at port:3000......');

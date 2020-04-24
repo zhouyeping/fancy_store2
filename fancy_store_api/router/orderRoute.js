@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const api = require('../server/orderService');
+const api = require('../service/orderService');
 
 router.post("/add",async function(req,res,next){
     console.log(req.body);

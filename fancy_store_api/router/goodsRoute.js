@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const api = require('../server/goodsService');
+const api = require('../service/goodsService');
 
 router.get("/queryAllGoods",async function(req,res,next){
     console.log("router start get goods");

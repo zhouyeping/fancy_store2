@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const api = require('../server/categoryService');
+const api = require('../service/categoryService');
 
 router.get("/queryAllCategory",async function(req,res,next){
     if (!req.query.page || !req.query.limit || req.query.searchContent === undefined ||

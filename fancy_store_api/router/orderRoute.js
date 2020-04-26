@@ -14,6 +14,7 @@ router.post("/add",async function(req,res,next){
     let orderModel = {
         oid: req.body.oid,
         product_id: req.body.product_id,
+        num:req.body.num,
         status_code: req.body.status_code,
         update_time: req.body.update_time
     };

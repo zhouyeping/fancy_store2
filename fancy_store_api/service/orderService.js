@@ -13,6 +13,7 @@ module.exports = {
                       orderModel.oid,
                       orderModel.uid,
                       orderModel.product_id,
+                      orderModel.num,
                       orderModel.create_time,
                       orderModel.update_time,
                       orderModel.status_code

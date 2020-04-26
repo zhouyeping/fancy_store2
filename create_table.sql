@@ -72,6 +72,7 @@ create table if not exists orders(
  oid varchar(20),
  uid int,
  product_id int,
+ num int,
  create_time int comment'创建时间',
  update_time int comment'更新时间',
  status_code int comment '订单状态'

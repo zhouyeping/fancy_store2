@@ -1,7 +1,4 @@
-
 module.exports = {
-
-    // "select * from orders where uid= "+ connection.escape(uid);
     category: {
         queryAll: "select cid, cname from category",
         qureyGoodsUnderCategory:"select product_info.id,product_info.category_id,product_info.sn,product_info.name,"+
@@ -25,7 +22,12 @@ module.exports = {
         updateById: "update product_info set name = ?, comment = ?, price = ?, update_time = ?, on_sale_time = ? where id = ?"
     },
     orders:{
-        queryAllByUid:"select * from orders where uid=?",
-        insert:"insert into orders values(null,?,?,?,?,?,?)"
+        queryAllByUid:"select * from orders where uid=? limit ?, ?",
+        queryDetailByOid: "select * from orders where oid = ?",
+        insert:"insert into orders values(null,?,?,?,?,?,?,?)"
+    },
+    cart: {
+        queryDetailByUid: "select * from cart where u_id = ? limit ?,?",
+        insert: "insert into cart values(null, ?, ?, ?, ?, ?)"
     }
 };

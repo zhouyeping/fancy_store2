@@ -9,8 +9,26 @@ module.exports = {
      * 查询用户订单列表
      * @returns {Promise<void>}
      */
-    async queryOrderList(){
-
+    async queryOrderList(offset, limit, userId){
+        return await new Promise(function(resolve, reject){
+            pool.getConnection(function(err, connection){
+                if (err){
+                    console.log(err);
+                    return resolve(-1);
+                }
+                /* 考虑这个地方的resolve问题 */
+                resolve(new Promise(function(resolve, reject){
+                    connection.query(sqlMap.orders.queryAllByUid, [userId, offset, limit], function(err, result){
+                        if (err){
+                            console.log(err);
+                            return resolve(-1)
+                        }
+                        resolve(result)
+                        connection.release()
+                    })
+                }))
+            })
+        })
     },
 
     /**
@@ -19,7 +37,20 @@ module.exports = {
      * @returns {Promise<void>}
      */
     async queryOrderDetail(orderId){
-
+        return await new Promise(function(resolve, reject){
+            pool.getConnection(function(err, connection){
+                resolve(new Promise(function(resolve, reject){
+                    connection.query(sqlMap.orders.queryDetailByOid, [orderId], function(err, result){
+                        if (err){
+                            console.log(err)
+                            return resolve(-1)
+                        }
+                        resolve(result)
+                        connection.release()
+                    })
+                }))
+            })
+        })
 
     },
 
@@ -29,7 +60,32 @@ module.exports = {
      * @returns {Promise<void>}
      */
     async addOrder(orderModel){
-
-
+        return await new Promise(function(resolve, reject){
+            pool.getConnection(function(err, connection){
+                if (err){
+                    console.log(err)
+                    return resolve(-1)
+                }
+                resolve(new Promise(function(resolve, reject){
+                    let insertData = [
+                        orderModel.oid,
+                        orderModel.uid,
+                        orderModel.product_id,
+                        orderModel.num,
+                        orderModel.create_time,
+                        orderModel.update_time,
+                        orderModel.status_code,
+                    ]
+                    connection.query(sqlMap.orders.insert, insertData, function(err, result){
+                        if (err){
+                            console.log(err)
+                            return resolve(-1)
+                        }
+                        resolve(result)
+                        connection.release()
+                    })
+                }))
+            })
+        })
     }
 }

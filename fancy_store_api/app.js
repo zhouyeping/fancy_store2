@@ -1,11 +1,9 @@
 const cateRouter = require('./router/cateRoute');
 const goodsRouter = require('./router/goodsRoute');
-const orderRouter = require('./router/orderRoute');
+const orderRouter = require('./router/index');
 const bodyParser = require('body-parser'); // post 数据是需要
 const express = require('express');
 const session = require("express-session");
-const multer = require("multer");
-const fs = require('fs');
 const app = express();
 
 const cors = require('cors');
@@ -40,12 +38,18 @@ app.all('*',function(req,res,next){
 })
 // 错误处理中间件
 
-
+/* 暂时设置用户的登录回话 */
+app.use(function(req, res, next){
+    req.session.userinfo = {
+        uid: 1
+    }
+    next()
+})
 
 // 路由列表
 app.use('/cateRoute', cateRouter)
 app.use('/goodsRoute', goodsRouter)
-app.use('/orderRoute',orderRouter)
+app.use('/',orderRouter)
 
 app.listen(3000);
 console.log('success listen at port:3000......');

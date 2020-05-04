@@ -4,6 +4,38 @@ const pool = mysqlPool.pool;
 
 module.exports = {
 
+        /**
+     * 获取商品名称和相应分类
+     * @param NULL
+     * @returns {Promise<any>}
+     */
+    async queryAllGoods(){
+        return await new Promise(function(resolve, reject){
+            pool.getConnection(function (err, connection) {
+                if (err){
+                    console.log(err);
+                    resolve(-1);
+                }
+                resolve(new Promise(function(resolve, reject){
+                    connection.query(sqlMap.goods.queryAll, function(err, result){
+                        connection.release();
+                        if (err){
+                            console.log(err);
+                            resolve(-1);
+                        }
+                        let goodsList = result.map(function(item){
+                            return {
+                                id: item.id,
+                                category_id: item.category_id,
+                                name: item.name,
+                            }
+                        });
+                        resolve(goodsList);
+                    });
+                }));
+            })
+        });
+    },
     /**
      * 根据商品id 获取商品详情
      * @param product_id

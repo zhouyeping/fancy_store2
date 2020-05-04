@@ -2,10 +2,21 @@ const express = require('express');
 const router = express.Router();
 const OrderService = require("../service/orderService")
 const CartService  = require('../service/cartService')
+const GoodsService = require("../service/goodsService")
+const CategoryService  = require('../service/categoryService')
+/* 查询商品名称 */
+router.get('/goods/query-list', function(req, res, next){
+    GoodsService.queryAllGoods(req, res, next)
+})
 
-/* 查询用户订单列表 */
-router.get('/order/query-list', function(req, res, next){
-    OrderService.queryUserOrders(req, res, next)
+/* 查询商品详情 */
+router.get('/goods/query-detail', function(req, res, next){
+    GoodsService.queryGoodsDetails(req, res, next)
+})
+
+/* 查询商品分类及商品详情 */
+router.get('/category/query-list', function(req, res, next){
+    CategoryService.qureyGoodsUnderCategory(req, res, next)
 })
 
 /* 查询用户订单详情 */

@@ -1,77 +1,57 @@
-const sqlMap = require('../common/sqlMap');
-const mysqlPool = require('../common/mysqlPool');
-const pool=mysqlPool.pool;
+const CategoryModel = require('../model/CategoryModel')
 module.exports = {
-    async queryAllCategory(){
-        return await new Promise(function(resolve, reject){
-            pool.getConnection(function (err, connection) {
-                if (err){
-                    console.log(err);
-                    resolve(-1);
-                }
-                resolve(new Promise(function(resolve, reject){
-                    connection.query(sqlMap.category.queryAll, function(err, result){
-                        connection.release();
-                        if (err){
-                            console.log(err);
-                            resolve(-1);
-                        }
-                        let categoryList = result.map(function(item){
-                            return {
-                                cid: item.cid,
-                                cname: item.cname
-                            }
-                        });
-                        resolve(categoryList);
-                    });
-                }));
-            })
-        });
+    async queryAllCategory(req,res,next){
+        if (!req.query.page || !req.query.limit || req.query.searchContent === undefined ||
+            req.query.createTime === undefined || req.query.partId === undefined){
+            res.json({
+                status: false,
+                msg: "请求参数错误"
+            });
+            return 0;
+        }
+        req.query.page = parseInt(req.query.page);
+        req.query.limit = parseInt(req.query.limit);
+        let queryCondition = {
+            offset: (req.query.page - 1) * (req.query.limit),
+            limit: req.query.limit
+        };
+        if (req.query.partId !== "all"){
+           queryCondition.partId = parseInt(req.query.partId);
+        }
+        if (req.query.searchContent !== ""){
+            queryCondition.searchContent = req.query.searchContent;
+        }
+        if (req.query.createTime !== "all"){
+            req.query.createTime = JSON.parse(req.query.createTime);
+            queryCondition.createTime = {
+                startTime: req.query.createTime.startTime,
+                endTime: req.query.createTime.endTime
+            }
+        }
+            console.log("router start get categrory");
+            let result= await CategoryModel.queryAllCategory(queryCondition);
+            console.log("router end get categrory");
+            if( result === -1){
+                res.json({
+                    status: false,
+                    msg: "获取商品列表失败"
+                });
+                return 0;
+            }
+            res.json(result);
     },
-  async qureyGoodsUnderCategory(){
-        return await new Promise(function(resolve, reject){
-            pool.getConnection(function (err, connection) {
-                if (err){
-                    console.log(err);
-                    resolve(-1);
-                }
-                resolve(new Promise(function(resolve, reject){
-                    connection.query(sqlMap.category.qureyGoodsUnderCategory, function(err, result){
-                        connection.release();
-                        if (err){
-                            console.log(err);
-                            resolve(-1);
-                        }
-                        let categoryList = result.map(function(item){
-                            return {
-                                id: item.id,
-                                category_id: item.category_id,
-                                sn: item.sn,
-                                name: item.name,
-                                keyword: item.keyword,
-                                picture: item.picture,
-                                tips: item.tips,
-                                description: item.description,
-                                content: item.content,
-                                price: item.price,
-                                stock: item.stock,
-                                score: item.score,
-                                is_on_sale: item.is_on_sale,
-                                is_del: item.is_del,
-                                is_free_shipping: item.is_free_shipping,
-                                sell_count: item.sell_count,
-                                comment: item.comment,
-                                on_sale_time: item.on_sale_time,
-                                create_time: item.create_time,
-                                update_time: item.update_time,
-                                cid: item.cid,
-                                cname: item.cname
-                            }
-                        });
-                        resolve(categoryList);
-                    });
-                }));
-            })
+  async qureyGoodsUnderCategory(req,res,next){
+
+    console.log("router start get categrory");
+    let result= await CategoryModel.qureyGoodsUnderCategory();
+    console.log("router end get categrory");
+    if( result === -1){
+        res.json({
+            status: false,
+            msg: "获取商品列表下商品失败"
         });
-    },
+        return 0;
+    }
+    res.json(result);
+},
 }

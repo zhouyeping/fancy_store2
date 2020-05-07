@@ -1,5 +1,3 @@
-const cateRouter = require('./router/cateRoute');
-const goodsRouter = require('./router/goodsRoute');
 const orderRouter = require('./router/index');
 const bodyParser = require('body-parser'); // post 数据是需要
 const express = require('express');
@@ -47,8 +45,6 @@ app.use(function(req, res, next){
 })
 
 // 路由列表
-app.use('/cateRoute', cateRouter)
-app.use('/goodsRoute', goodsRouter)
 app.use('/',orderRouter)
 
 app.listen(3000);

@@ -28,6 +28,9 @@ module.exports = {
     },
     cart: {
         queryDetailByUid: "select * from cart where u_id = ? limit ?,?",
-        insert: "insert into cart values(null, ?, ?, ?, ?, ?)"
+        queryDetailByProid: "select * from cart where u_id = ? and product_id = ?",
+        insert: "insert into cart values(null, ?, ?, ?, ?, ?)",
+        modifyGoodsNum: "update cart set sale_num = ?, mprice_count = ? where u_id = ? and product_id = ?",
+        delete: "delete from cart where u_id = ? and product_id = ?"
     }
 };

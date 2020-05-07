@@ -40,4 +40,14 @@ router.post('/cart/add', function(req, res, next){
     CartService.addCart(req, res, next)
 })
 
+/* 修改购物车商品的数量 */
+router.post("/cart/modify", function(req, res, next){
+    CartService.modifyCartGoodsNum(req, res, next)
+})
+
+/* 从购物车中删除商品 */
+router.post('/cart/delete', function(req, res, next){
+    CartService.removeGoodsFromCart(req, res, next)
+})
+
 module.exports = router

@@ -42,16 +42,16 @@ module.exports = {
      * @param cartId
      * @returns {Promise<void>}
      */
-    async queryCartDetail(offset, limit, userId){
-        return await new Promise(function(resolve, reject){
-            pool.getConnection(function(err, connection){
-                if (err){
+    async queryCartDetail(offset, limit, userId) {
+        return await new Promise(function (resolve, reject) {
+            pool.getConnection(function (err, connection) {
+                if (err) {
                     console.log(err)
                     return resolve(-1)
                 }
-                resolve(new Promise(function(resolve, reject){
-                    connection.query(sqlMap.cart.queryDetailByUid, [userId, offset, limit], function(err, result){
-                        if (err){
+                resolve(new Promise(function (resolve, reject) {
+                    connection.query(sqlMap.cart.queryDetailByUid, [userId, offset, limit], function (err, result) {
+                        if (err) {
                             console.log(err)
                             return resolve(-1)
                         }
@@ -61,5 +61,93 @@ module.exports = {
                 }))
             })
         })
+    },
+
+    /**
+     *  修改购物车商品的数量
+     * @param sale_num
+     * @param mprice
+     * @param user_id
+     * @param product_id
+     * @returns {Promise<any>}
+     */
+    async modifyGoodsNumber(sale_num, mprice, user_id, product_id){
+        /* 其实直接返回一个promise也可以 */
+        return await new Promise(function(resolve, reject){
+            pool.getConnection(function(err, connection){
+                if(err){
+                    console.log(err)
+                    return resolve(-1)
+                }
+                resolve(new Promise(function(resolve, reject){
+                    connection.query(sqlMap.cart.modifyGoodsNum,[sale_num, mprice, user_id, product_id], function(err, result){
+                        if (err){
+                            console.log(err)
+                            return resolve(-1)
+                        }
+                        resolve(0)
+                        connection.release()
+                    })
+                }))
+            })
+        })
+    },
+
+    /**
+     *  查询用户购物车里面的某个商品的详情
+     * @param userId
+     * @param productId
+     * @returns {Promise<void>}
+     */
+    async queryCartGoodDetail(userId, productId){
+        return await new Promise(function(resolve, reject){
+            pool.getConnection(function(err, connection){
+                if (err){
+                    console.log(err)
+                    return resolve(-1)
+                }
+                resolve(new Promise(function(resolve, reject){
+                    connection.query(sqlMap.cart.queryDetailByProid, [userId, productId], function(err, result){
+                        if(err){
+                            console.log(err)
+                            return resolve(-1)
+                        }
+                        if(result.length === 0){
+                            console.log("未在用户: " + userId + "的购物车中找到商品：" + productId)
+                            return resolve(-1)
+                        }
+                        resolve(result[0])
+                    })
+                }))
+            })
+        })
+    },
+
+    /**
+     *  从用户的购物车中删除商品
+     * @param userId
+     * @param productId
+     * @returns {Promise<any>}
+     */
+    async deleteGoodsFromCart(userId, productId){
+        return await new Promise(function(resolve, reject){
+            pool.getConnection(function(err, connection){
+                if (err){
+                    console.log(err)
+                    return resolve(-1)
+                }
+                resolve(new Promise(function(resolve, reject){
+                    connection.query(sqlMap.cart.delete, [userId, productId], function(err, result){
+                        if (err){
+                            console.log(err)
+                            return resolve(-1)
+                        }
+                        resolve(0)
+                        connection.release()
+                    })
+                }))
+            })
+        })
     }
+
 }

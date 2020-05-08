@@ -117,6 +117,7 @@ module.exports = {
                             return resolve(-1)
                         }
                         resolve(result[0])
+                        connection.release()
                     })
                 }))
             })

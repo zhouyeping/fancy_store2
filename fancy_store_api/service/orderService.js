@@ -1,4 +1,5 @@
 const OrderModel = require('../model/orderModel')
+const CartModel = require("../model/cartModel")
 
 function generateOid(len){
     len = len || 20
@@ -124,7 +125,18 @@ module.exports = {
                 console.log("插入订单失败")
                 res.json({
                     status: false,
-                    msg: "插入订单失败"
+                    msg: "提交订单失败"
+                })
+                return 0
+            }
+
+            /* 删除购物车的商品记录 */
+            let removeCartGoodRet = await CartModel.deleteGoodsFromCart(req.session.userinfo.uid, item.product_id)
+            if (removeCartGoodRet === -1){
+                console.log("删除购物车记录失败")
+                res.json({
+                    status: false,
+                    msg: "提交订单失败"
                 })
                 return 0
             }

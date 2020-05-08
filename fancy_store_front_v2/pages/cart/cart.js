@@ -3,7 +3,6 @@ var orderApi = require("../../api/orderApi.js")
 var app = getApp()
 // pages/cart/cart.js
 Page({
-
   /**
    * Page initial data
    */
@@ -72,9 +71,36 @@ Page({
 
   /* 提交商品订单 */
   submitOrder(event){
+    let productList = []
+    this.data.product_list.map(item => {
+      if (item.isChose) {
+        productList.push({
+          product_id: item.product_id,
+          num: item.sale_num
+        })
+      }
+    })
+    if (productList.length == 0){
+      return wx.showToast({
+        title: '请选择商品',
+      })
+    }
     orderApi.submitOrder({
-
+      product_list: productList
     }).then(result => {
+      wx.showToast({
+        title: '提交订单成功',
+      })
+      /* 更新购物车商品列表 */
+      cartApi.getCartGoodsList({
+        page: this.data.pageIndex,
+        limit: this.data.pageSize
+      }).then(result => {
+        this.setData({
+          product_list: result
+        })
+      })
+    }).catch(res => {
 
     })
   },

@@ -1,0 +1,45 @@
+<template name="cart-goods-item">
+  <view class="goods-item--container">
+    <view class="goods-item__opr-btn--left">
+          <checkbox-group 
+          bindchange="addGoodsToOrder" 
+          data-product="{{product_id}}" 
+          data-sale_num="{{sale_num}}">
+            <checkbox 
+              checked="{{isChose ? true: false}}"                   class="goods-item-left-opr__checkbtn">
+            </checkbox>
+          </checkbox-group>
+    </view>
+    <view class="goods-item-img--container">
+      <image class="goods-item-container__img" 
+      src="{'http://111.231.217.199/images/' + picture}}">
+      </image>
+    </view>
+    <view class="goods-item__desc--container">
+      <view class="goods-item-desc__title--container">
+        <text class="goods-item-desc__title">{{name}}</text> 
+      </view>
+      <view class="goods-item-desc__price--container">
+        <text class="goods-item-desc__price">{{price_count}}</text> 
+      </view>
+      <view class="goods-item-desc__opr--container">
+        <image 
+          class="goods-item-desc-opr__reduce--icon"                    src="../../assets/image/reduce.svg" 
+          bindtap="modifyGoodsNum"
+          data-product="{{product_id}}" 
+          data-type="reduce">
+        </image>
+        <text class="goods-item-desc__sale_num">{{sale_num}}</text>
+
+        <image 
+          class="goods-item-desc-opr__reduce--icon"         src="../../assets/image/add.svg" 
+          bindtap="modifyGoodsNum"
+          data-product="{{product_id}}" 
+          data-type="add">
+        </image>
+      </view>
+    </view>
+  </view>
+</template>
+
+

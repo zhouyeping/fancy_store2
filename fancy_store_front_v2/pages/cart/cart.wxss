@@ -1,0 +1,35 @@
+/* pages/cart/cart.wxss */
+@import '../../template/cart/goods-item.wxss';
+
+.goods-add-order--container{
+  display: flex;
+  justify-content: space-between;
+  background-color: #F2F6FC;
+}
+
+.bottom-fixed--div{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.goods-add-order-left-container__checkbox{
+  display: inline-block;
+}
+
+.goods-add-order-right-container__sbumit-btn{
+  margin-left: 40rpx;
+  background-color: red;
+  color: white;
+  height: 100rpx;
+  width: 280rpx;
+  line-height: 100rpx;
+  display: inline-block;
+  text-align: center;
+}
+
+.goods-add-order-container__left{
+  height: 100rpx;
+  line-height: 100rpx;
+  padding-left: 20rpx;
+}

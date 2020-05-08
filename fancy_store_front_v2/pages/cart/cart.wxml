@@ -1,0 +1,29 @@
+<import src="../../template/cart/goods-item.wxml"></import>
+
+<view>
+  <view class="header--div">
+    <text class="header__title">购物车</text>
+  </view>
+  <view class="goods-list--container">
+    <template wx:for="{{product_list}}" is="cart-goods-item" data="{{...item}}"></template>
+  </view>
+
+  <view class="bottom-fixed--div">
+  <view class="goods-add-order--container">
+    <view class="goods-add-order-container__left">
+      <checkbox-group class="goods-add-order-left-container__checkbox" bindtap="choseAllGoods">
+        <checkbox>
+        </checkbox>
+      </checkbox-group>
+      <text class="goods-add-order-left-container__text" >全选</text>
+    </view>
+    <view class="goods-add-order-container__right">
+      <text class="goods-add-order-right-container__total-text">合计:</text> 
+      <text class="goods-add-order-right-container__total_price">{{totalPrice}}</text>
+      <text class="goods-add-order-right-container__sbumit-btn" bindtap="submitOrder">提交订单</text>
+    </view>
+  </view>
+    
+  </view>
+
+</view>

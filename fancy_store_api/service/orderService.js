@@ -110,18 +110,19 @@ module.exports = {
                 return 0
             }
         })
-        req.body.product_list.forEach(async function(item){
+        for (let i = 0, len = req.body.product_list.length; i < len; i ++) {
+            let item = req.body.product_list[i]
             let orderModel = {
                 oid: generateOid(20),
                 uid: req.session.userinfo.uid,
                 product_id: item.product_id,
                 num: item.num,
-                create_time: Math.round( new Date / 1000, 3),
-                update_time: Math.round( new Date / 1000, 3),
+                create_time: Math.round(new Date / 1000, 3),
+                update_time: Math.round(new Date / 1000, 3),
                 status_code: 0
             }
             let insertRet = await OrderModel.addOrder(orderModel)
-            if (insertRet === -1){
+            if (insertRet === -1) {
                 console.log("插入订单失败")
                 res.json({
                     status: false,
@@ -132,7 +133,8 @@ module.exports = {
 
             /* 删除购物车的商品记录 */
             let removeCartGoodRet = await CartModel.deleteGoodsFromCart(req.session.userinfo.uid, item.product_id)
-            if (removeCartGoodRet === -1){
+            console.log(removeCartGoodRet)
+            if (removeCartGoodRet === -1) {
                 console.log("删除购物车记录失败")
                 res.json({
                     status: false,
@@ -140,7 +142,7 @@ module.exports = {
                 })
                 return 0
             }
-        })
+        }
         res.json({
             status: true,
             msg: "添加订单成功"

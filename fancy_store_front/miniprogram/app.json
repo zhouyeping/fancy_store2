@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/cart/cart",
     "pages/countDown/countDown",
-    "pages/weather/weather"
+    "pages/weather/weather",
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

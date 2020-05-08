@@ -28,7 +28,7 @@ module.exports = {
     },
     cart: {
         queryDetailByUid: "select cart.cart_id, cart.u_id, cart.product_id, cart.price_count," +
-        "cart.mprice_count, cart.sale_num, product_info.name from cart left join product_info on " +
+        "cart.mprice_count, cart.sale_num, product_info.name, product_info.picture from cart left join product_info on " +
         "cart.product_id = product_info.id where cart.u_id = ?  limit ?,? ",
         queryDetailByProid: "select * from cart where u_id = ? and product_id = ?",
         insert: "insert into cart values(null, ?, ?, ?, ?, ?)",

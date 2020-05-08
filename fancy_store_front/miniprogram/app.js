@@ -25,7 +25,9 @@ App({
       name: 'getOpenId'
     })
     this.globalData = {
-      openid: recv.result.openid
+      openid: recv.result.openid,
+      BASE_API_HOST: "http://192.168.2.171:3000",
+      BASE_IMAGE_HOST: "http://111.231.217.199"
     }
     console.log('this is openid:' + this.globalData.openid)
   },

@@ -34,5 +34,10 @@ module.exports = {
         insert: "insert into cart values(null, ?, ?, ?, ?, ?)",
         modifyGoodsNum: "update cart set sale_num = ?, mprice_count = ? where u_id = ? and product_id = ?",
         delete: "delete from cart where u_id = ? and product_id = ?"
+    },
+    user: {
+        queryByOpenid: "select id, username, password from user where openid = ?",
+        insert: "insert into user values(null,?,?,?,?,?,?,?,?)",
+        queryByUserid: "select username, password, phone, id from user where id = ?"
     }
 };

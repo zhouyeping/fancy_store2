@@ -4,6 +4,8 @@ const OrderService = require("../service/orderService")
 const CartService  = require('../service/cartService')
 const GoodsService = require("../service/goodsService")
 const CategoryService  = require('../service/categoryService')
+const UserService = require("../service/userService")
+
 /* 查询商品名称 */
 router.get('/goods/query-list', function(req, res, next){
     GoodsService.queryAllGoods(req, res, next)
@@ -48,6 +50,16 @@ router.post("/cart/modify", function(req, res, next){
 /* 从购物车中删除商品 */
 router.post('/cart/delete', function(req, res, next){
     CartService.removeGoodsFromCart(req, res, next)
+})
+
+/* 用户登录 */
+router.post('/login', function(req, res, next){
+    UserService.login(req, res, next)
+})
+
+/* 用户注册 */
+router.post('/register', function(req, res, next){
+    UserService.register(req, res, next)
 })
 
 module.exports = router

@@ -6,5 +6,12 @@ module.exports = {
         password: 'syntaxNever763bee', // root 密码
         database: 'fancy_store', // 数据库名
         port: '3306'
+    },
+    wxApp: {
+        AppID: "wxa0c9a48eaaa91167",
+        AppSecret: "ed332ca98c20784f35027a139d0671ac"
+    },
+    system: {
+        TokenKey: "fancystore_qwer"
     }
 };

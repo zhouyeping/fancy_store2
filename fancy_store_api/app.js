@@ -1,4 +1,6 @@
 const orderRouter = require('./router/index');
+const jwt = require("jsonwebtoken")
+const sysConfig = require("./config/db").system
 const bodyParser = require('body-parser'); // post 数据是需要
 const express = require('express');
 const session = require("express-session");
@@ -36,12 +38,42 @@ app.all('*',function(req,res,next){
 })
 // 错误处理中间件
 
-/* 暂时设置用户的登录回话 */
+/**
+ *  验证用户的回话token
+ */
 app.use(function(req, res, next){
     req.session.userinfo = {
         uid: 1
     }
     next()
+    /* 注释掉参数验证的代码
+    console.log(req.path)
+    if(req.path !== '/login' && req.path !== '/register'){
+        if (req.headers['app_token'] === undefined){
+            res.json({
+                status: false,
+                msg: '登录失败'
+            })
+            return
+        }
+        jwt.verify(req.headers['app_token'], sysConfig.TokenKey, {}, function(err, result){
+            if (err){
+                console.log(err)
+                res.json({
+                    status: false,
+                    msg: "登录失败"
+                })
+                return 0
+            }else{
+                console.log("解码后的app_token, ", result)
+                req.app_token = result
+                next()
+            }
+        })
+    }else{
+        next()
+    }
+    */
 })
 
 // 路由列表

@@ -52,16 +52,17 @@ app.use(function(req, res, next){
         if (req.headers['app_token'] === undefined){
             res.json({
                 status: false,
-                msg: '登录失败'
+                msg: '权限校验失败'
             })
             return
         }
         jwt.verify(req.headers['app_token'], sysConfig.TokenKey, {}, function(err, result){
             if (err){
+                // 从理论上讲， 出现权限校验失败的唯一可能是用户token过期, 需要再一次login并获取新的token
                 console.log(err)
                 res.json({
                     status: false,
-                    msg: "登录失败"
+                    msg: "权限校验失败"
                 })
                 return 0
             }else{

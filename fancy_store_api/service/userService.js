@@ -38,16 +38,24 @@ module.exports = {
 
         let wxLoginRet = await this.loginToWX(req.body.code)
         let openid = ''
-        if ((openid = wxLoginRet.data.openid) == undefined){
+        if ((openid = wxLoginRet.data.openid) === undefined){
             res.json({
                 status: false,
-                msg: "查找用户失败"
+                msg: "登录失败"
             })
             return 0
         }
 
         let userInfo = await UserModel.queryUserInfoByOpenId(openid)
-        if (userInfo === -1 || userInfo.length == 0){
+        if (userInfo === -1){
+            res.json({
+                status: false,
+                msg: "登录失败"
+            })
+            return 0
+        }
+
+        if (userInfo.length === 0){
             res.json({
                 status: false,
                 msg: "用户未注册"
